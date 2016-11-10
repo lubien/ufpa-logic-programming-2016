@@ -1,13 +1,13 @@
 % Calculate list entries
 comprAcc(L, C) :- compr3(L, 0, C).
 
-compr3([X | Xs], Acc, C) :- compr3(Xs, Acc + 1, C).
+compr3([_ | Xs], Acc, C) :- compr3(Xs, Acc + 1, C).
 compr3([], Acc, Result) :- Result = Acc.
 
 compr(L, C) :- comprOther(L, 0, C).
 
 comprOther([], Acc, Result) :- Result is Acc.
-comprOther([X | Xs], Acc, Result) :- comprOther(Xs, Acc + 1, Result).
+comprOther([_ | Xs], Acc, Result) :- comprOther(Xs, Acc + 1, Result).
 
 % Sum list of values
 sum([], 0).
@@ -27,6 +27,10 @@ append1([], Bs, Bs).
 append1([A | As], Bs, [A | AsBs]) :- append(As, Bs, AsBs).
 
 % Prefix, Suffix and Sublist
-prefix(P, L) :- append(P, _, L).
+prefix(S, L) :- append(S, _, L).
+
 suffix(S, L) :- append(_, S, L).
-sublist(S, l) :- prefix(P, L), suffix(S, P).
+
+sublist(S, L) :- prefix(P, L), suffix(S, P).
+
+sublist1(S, L) :- append(S, _, L); append(_, S, L).
